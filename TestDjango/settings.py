@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'coffeelab',
-    'PianuraWeb',
     'rest_framework',
     'rest_api',
     'rest_framework.authtoken',

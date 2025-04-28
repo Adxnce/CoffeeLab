@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, adminPanel, adminPanelCreate, adminPanelUpdate, adminPanelDelete ,cafeHonduras, cafePeru, cafeEtiopia, cart, login, user, aboutUs
+from coffeelab.views import index, adminPanel, adminPanelCreate, adminPanelUpdate, adminPanelDelete ,cafeHonduras, cafePeru, cafeEtiopia, cart, login, user, aboutUs
 
 urlpatterns = [
     path('', index, name='index'),
@@ -12,6 +12,6 @@ urlpatterns = [
     path('cafe-peru/', cafePeru, name='cafe_peru'),
     path('cafe.etiopia/', cafeEtiopia, name='cafe_etiopia'),
     path('cart/', cart, name='cart'),
-    path('login/', login, name='login'),
+    path('login/', login, name='log'),
     path('user/', user, name='user'),
 ]
