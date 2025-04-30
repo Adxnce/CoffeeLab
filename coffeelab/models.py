@@ -19,6 +19,8 @@ class Producto(models.Model):
     nombreProducto = models.CharField(max_length=50, verbose_name='Nombre de Producto')
     descripcion = models.TextField(verbose_name='Descripcion del Producto')
     precio = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Precio')
+    # imagen = models.ImageField(upload_to='productos/', verbose_name='Imagen del Producto', null=True, blank=True)
+    imagen = models.CharField(max_length=100, null=True, blank=True, verbose_name="Nombre del archivo de imagen (en static/img/)")
     # stock = models.IntegerField(verbose_name='Stock')
 
     def __str__(self):
