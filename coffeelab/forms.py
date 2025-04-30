@@ -6,11 +6,11 @@ class UsuarioForm(ModelForm):
 
     class Meta:
         model = Usuario
-        fields = ['nombreUsuario', 'email', 'contrasena', 'direccion', 'ciudad']
+        fields = ['username', 'email', 'password', 'direccion', 'ciudad']
         widgets = {
-            'nombreUsuario': forms.TextInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'contrasena': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
             'direccion': forms.TextInput(attrs={'class': 'form-control'}),
             'ciudad': forms.TextInput(attrs={'class': 'form-control'}),
         }
@@ -19,7 +19,7 @@ class ProductoForm(ModelForm):
 
     class Meta:
         model = Producto
-        fields = ['nombreProducto', 'descripcion', 'precio', 'stock']
+        fields = ['nombreProducto', 'descripcion', 'precio']
 
 class LoginForm(forms.Form):
     username = forms.CharField(label='Nombre de usuario', max_length=50)

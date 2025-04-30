@@ -1,29 +1,37 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-class Usuario(models.Model):
-    # nombre usuario, email, contraseña, direccion, ciudad
-    nombreUsuario = models.CharField(max_length=50, primary_key=True, verbose_name='Nombre de Usuario')
-    # nombreUsuario = models.CharField(max_length=50, verbose_name='Nombre de Usuario')
-    email = models.EmailField(max_length=100, verbose_name='Email')
-    contrasena = models.CharField(max_length=50, verbose_name='Contraseña')
+class Usuario(AbstractUser):
+    email = models.EmailField(unique=True, verbose_name='Email')
     direccion = models.CharField(max_length=100, verbose_name='Direccion')
     ciudad = models.CharField(max_length=50, verbose_name='Ciudad')
 
+    REQUIRED_FIELDS = ['email', 'direccion', 'ciudad']
+
     def __str__(self):
-        return self.nombreUsuario
+        return self.username
 
 class Producto(models.Model):
 
-    idProducto = models.AutoField(primary_key=True, verbose_name='ID de Producto')
+    SKU = models.IntegerField(primary_key=True, verbose_name='ID de Producto')
     nombreProducto = models.CharField(max_length=50, verbose_name='Nombre de Producto')
     descripcion = models.TextField(verbose_name='Descripcion del Producto')
     precio = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Precio')
-    stock = models.IntegerField(verbose_name='Stock')
+    # stock = models.IntegerField(verbose_name='Stock')
 
     def __str__(self):
         return self.nombreProducto
+
+class Inventario(models.Model):
+
+    idInventario = models.AutoField(primary_key=True, verbose_name='ID de Inventario')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, verbose_name='Producto')
+    stock = models.IntegerField(verbose_name='Stock en Inventario')
+
+    def __str__(self):
+        return f"{self.producto.nombreProducto} - {self.stock} unidades"
 
 class Carrito(models.Model):
 
@@ -59,11 +67,4 @@ class DetallePedido(models.Model):
     def __str__(self):
         return f"{self.cantidad} x {self.producto.nombreProducto} (Pedido {self.pedido.idPedido})"
 
-
-class CategoriaProducto(models.Model):
-    idCategoria = models.AutoField(primary_key=True, verbose_name='ID de Categoria')
-    nombre = models.CharField(max_length=50, verbose_name='Nombre de la Categoria')
-
-    def __str__(self):
-        return self.nombre
 

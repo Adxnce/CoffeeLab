@@ -1,79 +1,8 @@
-<!doctype html>
-{% load static %}
+{%extends 'coffeelab/base.html'%}
+{%load static%}
+{%block title%}Inicio | 202CoffeeLab{%endblock%}
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="202CoffeeLab - Tu destino para los mejores cafés del mundo.">
-    <meta name="author" content="202CoffeeLab Team">
-    <title>Bootstrap demo</title>
-
-    <!-- <link rel="stylesheet" href="{% static 'coffelab/css/bootstrap.min.css' %}">      -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"> 
-    <style>
-        #welcome {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            background-color: rgb(93, 96, 107);
-            color: white;
-            width: 100%;
-        }
-
-
-    </style>
-    <!-- importar jquery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  </head>
-
-
-  <body class="d-flex flex-column min-vh-100 " >
-    <nav class="navbar navbar-expand-lg" style="padding-top: 0; padding-bottom: 0; ">
-        <div class="container" style="background-color: rgb(33, 37, 41, .5);">
-            <a class="navbar-brand text-white" href="{% url 'index'%}">
-                <img src="{% static 'coffeelab/img/logo.png' %}" alt="Logo" width="80" height="80" class="d-inline-block align-text-center">
-                <!-- 202CoffeeLab -->
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link text-white active" aria-current="page" href="{% url 'index'%}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'about_us'%}">Sobre nosotros</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Catálogo
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'cafe_honduras'%}">Honduras</a></li>
-                            <li><a class="dropdown-item" href="{% url 'cafe_etiopia'%}">Etiopía</a></li>
-                            <li><a class="dropdown-item" href="{% url 'cafe_peru'%}">Perú</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <button class="btn btn-outline-secondary me-2" type="button" onclick="window.location.href='{% url 'user'%}';">
-                        <i class="bi bi-person-fill" aria-label="Perfil"></i>
-                    </button>
-                    <button class="btn btn-outline-secondary me-2" type="button" onclick="window.location.href='{% url 'cart'%}';">
-                        <i class="bi bi-cart-fill" aria-label="Carrito"></i>
-                    </button>
-                    <button class="btn btn-outline-secondary" type="button" onclick="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ';">
-                        <i class="bi bi-heart-fill" aria-label="Favoritos"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
+{%block content%}
     <div class="container w-100  text-center" style="padding-top: 5%; padding-bottom: 10%; "  id="welcome">
         <h1 class="display-1">Bienvenido, Administrador</h1>
         <div class="container mt-5">
@@ -85,7 +14,7 @@
                 <div class="row mb-4">
                     <div class="col-md-3">
                         <label for="id_nombreUsuario" class="form-label">Nombre Usuario</label>
-                        {{ form.nombreUsuario }}
+                        {{ form.username }}
                     </div>
                     <!-- <div class="col-md-3">
                         <label for="id_contrasena" class="form-label">Contraseña</label>
@@ -119,35 +48,4 @@
         <input type="button" class="btn btn-primary mt-5" onclick="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'" value="Panel de Control">
     </div>
 
-
-    
-    <footer class=" text-white py-4 mt-auto " style="margin-bottom: -10px; bottom: 0;" >
-        <div class="container text-center bg-dark " style="padding-top: 0px; padding-bottom: 20px;">
-            <p>&copy; 2025 202CoffeLab. Todos los derechos reservados.</p>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 text-center">
-                    <h5>Contacto</h5>
-                    <p>Email: 202CoffeeLab@gmail.com</p>
-                    <p>Tel: +569 9898 6565</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <h5>Redes Sociales</h5>
-                    <a href="https://es-la.facebook.com/" class="text-white me-2"><i class="bi bi-facebook fs-5"></i></a> <!-- No hay facebook, entonces lo mando al inicio -->
-                    <a href="https://www.instagram.com/202coffeelab/" class="text-white me-2"><i class="bi bi-instagram fs-5"></i></a>
-                    <a href="https://x.com/" class="text-white"><i class="bi bi-twitter-x fs-5"></i></a> <!-- No hay twitter, entonces lo mando al inicio -->
-                </div>
-                <div class="col-md-4 text-center">
-                    <h5>Dirección</h5>
-                    <p>Lautaro 507, Concepción</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-</html>
+{%endblock%}

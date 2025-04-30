@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.forms import UserCreationForm
 from .forms import UsuarioForm, ProductoForm, LoginForm
-from .models import Usuario
+from .models import Usuario, Producto
 
 # Create your views here.
 
@@ -52,14 +53,13 @@ def adminPanelDelete(request, id):
     usuario.delete()
     return redirect(to='adminPanel')
 
-def cafeHonduras(request):
-    return render(request, 'coffeelab/cafe-honduras.html')
 
-def cafePeru(request):
-    return render(request, 'coffeelab/cafe-peru.html')
+def catalogo(request):
 
-def cafeEtiopia(request):
-    return render(request, 'coffeelab/cafe.etiopia.html')
+    if request.method == 'GET':
+        productos = Producto.objects.all()
+
+    return render(request, 'coffeelab/catalogo.html', {'productos': productos})
 
 def cart(request):
     return render(request, 'coffeelab/cart.html')
@@ -67,7 +67,7 @@ def cart(request):
 def login(request):
 
     datos = {
-        'form' : LoginForm()
+        'form': LoginForm()
     }
 
     if request.method == 'POST':
@@ -76,21 +76,14 @@ def login(request):
             username = formulario.cleaned_data['username']
             password = formulario.cleaned_data['password']
 
-            try:
+            user = authenticate(request, username=username, password=password)
 
-                usuario = Usuario.objects.get(nombreUsuario__iexact=username)
-                if usuario.nombreUsuario.lower() == 'admin':
-                    if usuario.contrasena == password:
-                        return redirect('adminPanel')
-                    else:
-                        datos['mensaje'] = "Contraseña incorrecta"
-                else:
-                    if usuario.contrasena == password:
-                        return redirect('index')
-                    else:
-                        datos['mensaje'] = "Contraseña incorrecta"
-            except Usuario.DoesNotExist:
-                datos['mensaje'] = "Usuario no encontrado"
+            if user is not None:
+                auth_login(request, user)
+                return redirect(to='index')
+            else:
+                formulario.add_error(None, "Usuario o contraseña incorrectos")
+
     return render(request, 'coffeelab/login.html', datos)
 
 def user(request):
