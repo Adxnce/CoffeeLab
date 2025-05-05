@@ -7,13 +7,14 @@ from django.views.decorators.csrf import csrf_exempt
 from coffeelab.models import Usuario, Producto
 from .serializers import UsuarioSerializer
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import check_password
 from rest_framework.authtoken.models import Token
 
 @api_view(['POST'])
 def login(request):
     data = JSONParser().parse(request)
+    User = get_user_model()
 
     username = data['username']
     password = data['password']

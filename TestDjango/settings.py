@@ -105,6 +105,14 @@ DATABASES = {
 
 AUTH_USER_MODEL = 'coffeelab.Usuario'
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend', 
+]
+
+LOGIN_URL = 'index'  # URL de la página de inicio de sesión
+LOGIN_REDIRECT_URL = 'adminPanel'  # Redirige a la página principal después de iniciar sesión
+LOGOUT_REDIRECT_URL = 'log'  # Redirige a la página principal después de cerrar sesión
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -146,7 +154,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
     ],
+
 }
+

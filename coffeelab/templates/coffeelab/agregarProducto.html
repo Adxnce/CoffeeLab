@@ -8,34 +8,30 @@
         <h1 class="display-1">Bienvenido, {{ request.user.username }}</h1>
         <div class="container mt-5">
 
-            <h2>Crear Usuario</h2>
+            <h2>Agregar producto</h2>
 
-            <form method="POST" id="userForm">
+            <form method="POST" id="productoForm">
                 {% csrf_token %}
                 <div class="row mb-4">
                     <div class="col-md-3">
-                        <label for="id_username" class="form-label">Nombre Usuario</label>
-                        {{ form.username }}
+                        <label for="id_SKU" class="form-label">SKU</label>
+                        {{ form.SKU }}
                     </div>
                     <div class="col-md-3">
-                        <label for="id_password" class="form-label">Contraseña</label>
-                        {{ form.password }}
+                        <label for="id_nombreProducto" class="form-label">nombreProducto</label>
+                        {{ form.nombreProducto }}
                     </div>
                     <div class="col-md-3">
-                        <label for="id_confirmPassword" class="form-label">Confirmar Contraseña</label>
-                        <input type="password" class="form-control" id="id_confirmPassword" required>
+                        <label for="id_precio" class="form-label">precio</label>
+                        {{ form.precio }}
                     </div>
                     <div class="col-md-3">
-                        <label for="id_email" class="form-label">Email</label>
-                        {{ form.email }}
+                        <label for="id_imagen" class="form-label">imagen</label>
+                        {{ form.imagen }}
                     </div>
-                    <div class="col-md-3 offset-md-3">
-                        <label for="id_direccion" class="form-label">Dirección</label>
-                        {{ form.direccion }}
-                    </div>
-                    <div class="col-md-3  " >
-                        <label for="id_ciudad" class="form-label">Ciudad</label>
-                        {{ form.ciudad }}
+                    <div class="col-md-4 mt-3 offset-md-4">
+                        <label for="id_descripcion" class="form-label">descripcion</label>
+                        {{ form.descripcion }}
                     </div>
                 </div>
             
@@ -56,5 +52,5 @@
 
 {%endblock%}
 {% block scripts %}
-<script src="{% static 'coffeelab/js/nuevoUsuario.js' %}"></script>
+<script src="{% static 'coffeelab/js/agregarProducto.js' %}"></script>
 {% endblock %}

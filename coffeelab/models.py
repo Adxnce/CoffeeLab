@@ -19,31 +19,27 @@ class Producto(models.Model):
     nombreProducto = models.CharField(max_length=50, verbose_name='Nombre de Producto')
     descripcion = models.TextField(verbose_name='Descripcion del Producto')
     precio = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Precio')
-    # imagen = models.ImageField(upload_to='productos/', verbose_name='Imagen del Producto', null=True, blank=True)
     imagen = models.CharField(max_length=100, null=True, blank=True, verbose_name="Nombre del archivo de imagen (en static/img/)")
-    # stock = models.IntegerField(verbose_name='Stock')
+
 
     def __str__(self):
         return self.nombreProducto
 
-class Inventario(models.Model):
-
-    idInventario = models.AutoField(primary_key=True, verbose_name='ID de Inventario')
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, verbose_name='Producto')
-    stock = models.IntegerField(verbose_name='Stock en Inventario')
-
-    def __str__(self):
-        return f"{self.producto.nombreProducto} - {self.stock} unidades"
 
 class Carrito(models.Model):
-
-    idCarrito = models.AutoField(primary_key=True, verbose_name='ID de Carrito')
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name='Usuario')
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, verbose_name='Producto')
-    cantidad = models.IntegerField(verbose_name='Cantidad')
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, verbose_name='Usuario')
 
     def __str__(self):
-        return f"{self.usuario} - {self.producto}"
+        return f"Carrito de {self.usuario}"
+
+
+class CarritoItems(models.Model):
+    carrito = models.ForeignKey(Carrito, related_name='items', on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.cantidad} x {self.producto.nombreProducto}"
 
 class Pedido(models.Model):
     idPedido = models.AutoField(primary_key=True, verbose_name='ID de Pedido')

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, logout as auth_logout,  login as auth_login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .forms import UsuarioForm, ProductoForm, LoginForm
 from .models import Usuario, Producto
 
@@ -12,6 +13,7 @@ def index(request):
 def aboutUs(request):
     return render(request, 'coffeelab/about-us.html')
 
+@login_required
 def adminPanel(request):
     usuarios = Usuario.objects.all()
 
@@ -19,40 +21,47 @@ def adminPanel(request):
         'usuarios': usuarios
     }
 
-    return render(request, 'coffeelab/adminPanel.html', datos)
+    return render(request, 'coffeelab/adminPanel.html')
 
+@login_required
 def adminPanelCreate(request):
 
     datos = {
-        'form': UsuarioForm()
+        'form' : UsuarioForm()
     }
-
-    if request.method == 'POST':
-        formulario = UsuarioForm(request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            datos['mensaje'] = "Usuario creado correctamente"
-        else:
-            datos['mensaje'] = "Error al crear el usuario"
 
     return render(request, 'coffeelab/adminPanelCreate.html', datos)
 
+@login_required
 def adminPanelUpdate(request, id):
 
-    usuario = Usuario.objects.get(nombreUsuario=id)
+    usuario = Usuario.objects.get(username=id)
+
 
     datos = {
-        'form': UsuarioForm(instance=usuario)
+        'form': UsuarioForm(instance=usuario),
+        'id': id
     }
 
     return render(request, 'coffeelab/adminPanelUpdate.html', datos)
 
+@login_required
 def adminPanelDelete(request, id):
-
-    usuario = Usuario.objects.get(nombreUsuario=id)
+    datos = {
+        'id': id
+    }
+    usuario = Usuario.objects.get(username=id)
     usuario.delete()
     return redirect(to='adminPanel')
 
+@login_required
+def agregarProducto(request):
+    
+    datos = {
+        'form' : ProductoForm()
+    }
+
+    return render(request, 'coffeelab/agregarProducto.html', datos)
 
 def catalogo(request):
 
@@ -80,11 +89,15 @@ def login(request):
 
             if user is not None:
                 auth_login(request, user)
-                return redirect(to='index')
+                return redirect(to='adminPanel')
             else:
                 formulario.add_error(None, "Usuario o contraseña incorrectos")
 
     return render(request, 'coffeelab/login.html', datos)
+
+def logout(request):
+    auth_logout(request)
+    return redirect(to='log')
 
 def user(request):
     datos = {
@@ -94,7 +107,10 @@ def user(request):
     if request.method== 'POST':
         formulario = UsuarioForm(request.POST)
         if formulario.is_valid():
-            formulario.save()
-            datos['mensaje'] = "Usuario creado correctamente"
+            usuario = formulario.save(commit=False)
+            usuario.set_password(formulario.cleaned_data['password'])
+            usuario.is_active = True
+            usuario.save()
+            return redirect('log')
 
     return render(request, 'coffeelab/user.html', datos)

@@ -4,7 +4,7 @@
 
 {%block content%}
     <div class="container w-100  text-center" style="padding-top: 5%; padding-bottom: 10%; "  id="welcome">
-        <h1 class="display-1">Bienvenido, Administrador</h1>
+        <h1 class="display-1">Bienvenido, {{ request.user.username }}</h1>
         <div class="container mt-5">
             <div class="row">
                 <h1 class="mb-4">Lista de Usuarios</h1>
@@ -21,17 +21,8 @@
                             <th>Eliminar</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {% for us in usuarios %}
-                        <tr>
-                            <td>{{ us.username }}</td>
-                            <td>{{ us.email }}</td>
-                            <td>{{ us.direccion }}</td>
-                            <td>{{ us.ciudad }}</td>
-                            <td><a href="{% url 'adminPanelUpdate' us.nombreUsuario %}">Modificar</a></td>
-                            <td><a href="{% url 'adminPanelDelete' us.nombreUsuario %}">Eliminar</a></td>
-                        </tr>
-                        {% endfor %}
+                    <tbody id="in-usuarios">
+                        <!-- aqui va el jquery -->
                     </tbody>
                 </table>
                 
@@ -45,3 +36,7 @@
         <input type="button" class="btn btn-primary mt-5" onclick="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'" value="Panel de Control">
     </div>
 {%endblock%}
+{% block scripts %}
+<script src="{% static 'coffeelab/js/adminPanel.js' %}"></script>
+<script src="{% static 'coffeelab/js/borrarUsuario.js' %}"></script>
+{% endblock %}

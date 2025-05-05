@@ -4,22 +4,22 @@
 
 {%block content%}
     <div class="container w-100  text-center" style="padding-top: 5%; padding-bottom: 10%; "  id="welcome">
-        <h1 class="display-1">Bienvenido, Administrador</h1>
+        <h1 class="display-1">Bienvenido, {{ request.user.username }}</h1>
         <div class="container mt-5">
 
             <h2>Crear Usuario</h2>
 
-            <form method="POST">
+            <form method="POST" id="userForm">
                 {% csrf_token %}
                 <div class="row mb-4">
                     <div class="col-md-3">
                         <label for="id_nombreUsuario" class="form-label">Nombre Usuario</label>
                         {{ form.username }}
                     </div>
-                    <!-- <div class="col-md-3">
-                        <label for="id_contrasena" class="form-label">Contraseña</label>
-                        {{ form.contrasena }}
-                    </div> -->
+                    <div class="col-md-3">
+                        <label for="id_password" class="form-label">Password</label>
+                        {{ form.password }}
+                    </div>
                     <div class="col-md-3">
                         <label for="id_email" class="form-label">Email</label>
                         {{ form.email }}
@@ -28,7 +28,7 @@
                         <label for="id_direccion" class="form-label">Dirección</label>
                         {{ form.direccion }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4 mt-4 offset-md-4">
                         <label for="id_ciudad" class="form-label">Ciudad</label>
                         {{ form.ciudad }}
                     </div>
@@ -49,3 +49,6 @@
     </div>
 
 {%endblock%}
+{% block scripts %}
+<script src="{% static 'coffeelab/js/actualizarUsuario.js' %}"></script>
+{% endblock %}

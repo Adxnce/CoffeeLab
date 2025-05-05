@@ -4,7 +4,7 @@ from .models import *
 
 admin.site.register(Producto)
 admin.site.register(Usuario)
-admin.site.register(Inventario)
+admin.site.register(CarritoItems)
 admin.site.register(Carrito)
 admin.site.register(Pedido)
 admin.site.register(DetallePedido)

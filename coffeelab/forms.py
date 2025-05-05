@@ -19,7 +19,14 @@ class ProductoForm(ModelForm):
 
     class Meta:
         model = Producto
-        fields = ['nombreProducto', 'descripcion', 'precio']
+        fields = ['SKU', 'nombreProducto', 'descripcion', 'precio', 'imagen']
+        widgets = {
+            'SKU': forms.TextInput(attrs={'class': 'form-control'}),
+            'nombreProducto': forms.TextInput(attrs={'class': 'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'precio': forms.NumberInput(attrs={'class': 'form-control'}),
+            'imagen': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
 class LoginForm(forms.Form):
     username = forms.CharField(label='Nombre de usuario', max_length=50)
