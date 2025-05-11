@@ -14,8 +14,6 @@ $(document).ready(function () {
             ciudad: $('#id_ciudad').val(),
             rol: $('#id_rol').val(),
         };
-        console.log("contraseña: ", formData.password);
-        console.log("confirmar contraseña :", confirmPassword);
         
         // Validación de contraseñas
         if (formData.password == confirmPassword){

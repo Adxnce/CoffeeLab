@@ -8,7 +8,6 @@ $(document).ready(function() {
         contentType: 'application/json',
         success: function (response) {
             $.each(response, function(index, producto) {
-                console.log(producto);
                 $('#in-productos').append(
                     "<tr><td>" + producto.SKU + "</td>" +
                     "<td>" + producto.nombreProducto + "</td>" +
@@ -25,7 +24,6 @@ $(document).ready(function() {
 
     $(document).on('click', '.btn-modificar', function() {
         const SKU = $(this).data('id');
-        console.log(SKU);
         window.location.href = '/administrarProductoModificar/' + SKU + '/';
     });
 

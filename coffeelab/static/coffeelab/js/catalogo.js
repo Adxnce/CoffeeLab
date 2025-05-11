@@ -3,7 +3,6 @@ $(document).ready(function() {
     const token = localStorage.getItem('token');
     const rol = localStorage.getItem('rol');
     const username = localStorage.getItem('username');
-    console.log(token);
 
     if (token && rol == "admin") {
         $('#welcome').css('display', 'block');
@@ -47,7 +46,6 @@ $(document).ready(function() {
         const token = localStorage.getItem('token');
         const productoId = $(this).data('id'); 
         const cantidad = 1; 
-        console.log(token);
         $.ajax({
             url: '/api/vista_carrito_usuario/',
             type: 'POST',

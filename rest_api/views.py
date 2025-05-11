@@ -136,7 +136,6 @@ def vista_usuarios_mod(request, id):
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated,])
 def vista_carrito_usuario(request):
-    print("hola")
     try:
         carrito = Carrito.objects.get(usuario=request.user)
     except Carrito.DoesNotExist:
@@ -150,7 +149,6 @@ def vista_carrito_usuario(request):
         usuario = request.user
         producto_nombre = request.data.get('producto')
         cantidad = request.data.get('cantidad', 1)
-        print(usuario, request.data, cantidad)
 
 
         try:
@@ -204,7 +202,6 @@ def recuperar_clave(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         email = data.get('email')
-        print(email)
         try:
             usuario = Usuario.objects.get(email=email)
         except Usuario.DoesNotExist:

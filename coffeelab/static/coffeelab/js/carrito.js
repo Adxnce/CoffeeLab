@@ -10,7 +10,6 @@ $(document).ready(function() {
             'Authorization': 'Token ' + token
         },
         success: function (response) {
-            console.log(response.items[1]);
             let precio_total_carrito = 0;
             $.each(response.items, function(index, carrito) {
                 precio_total_carrito += carrito.precio_unitario * carrito.cantidad;
@@ -48,7 +47,6 @@ $(document).ready(function() {
 
     $(document).on('click', '.btn-primary', function() {
         const itemId = $(this).data('id');
-        console.log(itemId);
         $.ajax({
             url: '/api/borrar_producto_carrito/'+itemId,
             type: 'DELETE',

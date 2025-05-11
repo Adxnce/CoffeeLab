@@ -5,7 +5,6 @@ $(document).ready(function () {
     // Manejo del formulario
     $(document).on('click', '.btn-eliminar', function (e) {
         e.preventDefault(); // Evita que se envíe el formulario de forma tradicional
-        console.log(token);
         const username = $(this).data('id'); // Obtiene el ID del usuario a eliminar
         $.ajax({
             url: '/api/datos_usuarios/' + username,

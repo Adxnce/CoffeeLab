@@ -9,7 +9,7 @@ $(document).ready(function() {
         e.preventDefault(); // Evita que se envíe el formulario de forma tradicional
 
 
-        console.log(preUsername)
+
         const formData = {
             username: $('#id_username').val(),
             email: $('#id_email').val(),
