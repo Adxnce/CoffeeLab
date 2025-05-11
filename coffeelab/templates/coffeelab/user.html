@@ -8,31 +8,35 @@
         <form class="row g-3" method="POST"  id="userForm">
             {% csrf_token %}
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="id_username" class="form-label">Nombre Usuario</label>
                 {{ form.username }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="id_email" class="form-label">Email</label>
                 {{ form.email }}
             </div>
-            <div class="col-md-6">
-                <label for="id_password" class="form-label">Contraseña</label>
-                {{ form.password }}
-            </div>
-            <div class="col-md-6">
-                <label for="id_confirmPassword" class="form-label">Confirmar Contraseña</label>
-                <input type="password" class="form-control" id="id_confirmPassword" required>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="id_direccion" class="form-label">Dirección</label>
                 {{ form.direccion }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
+                <label for="id_password" class="form-label">Contraseña</label>
+                {{ form.password }}
+            </div>
+            <div class="col-md-4">
+                <label for="id_confirmPassword" class="form-label">Confirmar Contraseña</label>
+                <input type="password" class="form-control" id="id_confirmPassword" required>
+            </div>
+            <div class="col-md-4">
                 <label for="id_ciudad" class="form-label">Ciudad</label>
                 {{ form.ciudad }}
             </div>
 
+            <div class="col-md-4 offset-md-4">
+                <label for="id_rol" class="form-label">Rol</label>
+                {{ form.rol }}
+            </div>
             <button type="submit" class="btn btn-success col-md-1 offset-md-5 me-1">Sign in</button>
             <button type="button" onclick="window.location.href='{% url 'log' %}'" class="btn btn-primary col-md-1">Log in</button>
         </form>

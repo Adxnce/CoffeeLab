@@ -109,7 +109,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend', 
 ]
 
-LOGIN_URL = 'index'  # URL de la página de inicio de sesión
+LOGIN_URL = 'adminPanel'  # URL de la página de inicio de sesión
 LOGIN_REDIRECT_URL = 'adminPanel'  # Redirige a la página principal después de iniciar sesión
 LOGOUT_REDIRECT_URL = 'log'  # Redirige a la página principal después de cerrar sesión
 
@@ -155,8 +155,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
 
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ 

@@ -6,29 +6,31 @@ from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from coffeelab.models import Usuario, Producto
 from .serializers import UsuarioSerializer
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import check_password
 from rest_framework.authtoken.models import Token
 
+
 @api_view(['POST'])
 def login(request):
-    data = JSONParser().parse(request)
-    User = get_user_model()
+    data = request.data  # Utiliza request.data para obtener los datos
+    username = data.get('username')
+    password = data.get('password')
 
-    username = data['username']
-    password = data['password']
+    if not username or not password:
+        return Response({'detail': 'Username y password son requeridos.'}, status=400)
 
-    try:
-        user = User.objects.get(username=username)
-    except User.DoesNotExist:
-        return Response('Usuario Incorrecto')
+    user = authenticate(request, username=username, password=password)
 
-    #validamos la password
-    pass_valido = check_password(password, user.password)
-    if not pass_valido:
-        return Response('Contraseña Incorrecta')
-
-    #permitir crear o recuperar el token
-    token, created = Token.objects.get_or_create(user=user)
-    return Response(token.key)
+    if user is not None:
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'rol': user.rol,
+            'username': user.username,
+            })
+    else:
+        return Response({'detail': 'Usuario o contraseña incorrectos.'}, status=401)

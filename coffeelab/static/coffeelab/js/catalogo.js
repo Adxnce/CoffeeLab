@@ -1,38 +1,29 @@
 $(document).ready(function() {
     
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Verifica si esta cookie es la que buscamos
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
+    const token = localStorage.getItem('token');
+    const rol = localStorage.getItem('rol');
+    const username = localStorage.getItem('username');
+    console.log(token);
 
-    // Configura jQuery para incluir el CSRF token en cada solicitud AJAX
-    const csrftoken = getCookie('csrftoken');
-    $.ajaxSetup({
-        headers: { 'X-CSRFToken': csrftoken }
-    });
+    if (token && rol == "admin") {
+        $('#welcome').css('display', 'block');
+    };
 
+    $.ajax({
+        url: '/api/lista_productos/',
+        type: 'GET',
+        contentType: 'application/json',
+        success: function (response) {
 
-    $.get('/api/lista_productos/', function(data) {
-
-        $('#in-productos').empty();
-
-        $.each(data, function(index, producto) {
-            console.log(producto.id);
-            $('#in-productos').append(
-                "<div class='col'>" +
+            $('#in-productos').empty();
+            $.each(response, function(index, producto) {
+                $('#in-productos').append(
+                    "<div class='col'>" +
                     "<div class='card h-100 shadow-sm' style='max-width: 22rem; margin: auto;'>" +
-                        "<img src='/static/coffeelab/img/" + producto.imagen + "' class='card-img-top' alt='" + producto.nombre + "'>" +
+                        // "<img src='/static/coffeelab/img/" + producto.imagen + "' class='card-img-top' alt='" + producto.nombre + "'>" +
+                        "<img src='/static/coffeelab/img/" + producto.imagen + "' " +
+                        "onerror=\"this.onerror=null;this.src='/static/coffeelab/img/default.jpeg';\" " +
+                        "class='card-img-top' alt='" + producto.nombreProducto + "'>" +
                         "<div class='card-body d-flex flex-column'>" +
                             "<h5 class='card-title'>" + producto.nombreProducto + "</h5>" +
                             "<p class='card-text mb-2'>" + producto.descripcion + "</p>" +
@@ -41,23 +32,32 @@ $(document).ready(function() {
                         "</div>" +
                     "</div>" +
                 "</div>"
-            );
-        });
+                );
+            });
+        }
+    });
+
+
+
     });
 
     $(document).on('click', '.btn-primary', function(e) {
         e.preventDefault();
 
+        const token = localStorage.getItem('token');
         const productoId = $(this).data('id'); 
         const cantidad = 1; 
-
+        console.log(token);
         $.ajax({
             url: '/api/vista_carrito_usuario/',
             type: 'POST',
             contentType: 'application/json',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
             data: JSON.stringify({
                 'producto': productoId,
-                'cantidad': cantidad
+                'cantidad': cantidad,
             }),
             success: function(response) {
                 console.log("Producto agregado al carrito:", response);
@@ -70,4 +70,4 @@ $(document).ready(function() {
         })
 
     });
-});
+

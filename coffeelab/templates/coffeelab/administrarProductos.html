@@ -1,0 +1,39 @@
+{%extends 'coffeelab/base.html'%}
+{%load static%}
+{%block title%}Inicio | 202CoffeeLab{%endblock%}
+
+{%block content%}
+    <div class="container w-100  text-center" style="padding-top: 5%; padding-bottom: 10%; "  id="welcome">
+        <h1 class="display-1">Bienvenido</h1>
+        <div class="container mt-5">
+            <div class="row">
+                <h1 class="mb-4">Lista de Usuarios</h1>
+            </div>
+            <div class="row">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th>SKU</th>
+                            <th>Nombre Producto</th>
+                            <th>Precio</th>
+                            <th>Modificar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="in-productos">
+                        <!-- aqui va el jquery -->
+                    </tbody>
+                </table>
+                
+            </div>
+            <a style="color: white;" href="{% url 'agregarProducto' %}">Agregar nuevo producto</a>
+            
+        </div>
+
+        <button type="button" class="btn btn-primary mt-3" onclick="window.location.href='{% url 'catalogo' %}'">Volver</button>
+        
+    </div>
+{%endblock%}
+{% block scripts %}
+<script src="{% static 'coffeelab/js/adminProducto.js' %}"></script>
+{% endblock %}

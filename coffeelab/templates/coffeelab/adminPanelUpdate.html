@@ -4,41 +4,48 @@
 
 {%block content%}
     <div class="container w-100  text-center" style="padding-top: 5%; padding-bottom: 10%; "  id="welcome">
-        <h1 class="display-1">Bienvenido, {{ request.user.username }}</h1>
         <div class="container mt-5">
 
-            <h2>Crear Usuario</h2>
+            <h2>Modificar Datos</h2>
 
             <form method="POST" id="userForm">
                 {% csrf_token %}
                 <div class="row mb-4">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="id_nombreUsuario" class="form-label">Nombre Usuario</label>
                         {{ form.username }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="id_password" class="form-label">Password</label>
                         {{ form.password }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
+                        <label for="id_confirmPassword" class="form-label">Confirmar Contraseña</label>
+                        <input type="password" class="form-control col-md-3" id="id_confirmPassword" required>
+                    </div>
+                    <div class="col-md-4">
                         <label for="id_email" class="form-label">Email</label>
                         {{ form.email }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="id_direccion" class="form-label">Dirección</label>
                         {{ form.direccion }}
                     </div>
-                    <div class="col-md-4 mt-4 offset-md-4">
+                    <div class="col-md-4 ">
                         <label for="id_ciudad" class="form-label">Ciudad</label>
                         {{ form.ciudad }}
+                    </div>
+                    <div class="col-md-4 offset-md-4 ">
+                        <label for="id_rol" class="form-label">Rol</label>
+                        {{ form.rol }}
                     </div>
                 </div>
             
 
             
-                <button type="submit" class="btn btn-danger" id="enviar">Modificar</button>
-                <button type="reset" class="btn btn-primary" id="limpiar">Limpiar</button>
-                <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'adminPanel' %}'">Volver</button>
+                <button type="submit" class="btn btn-danger " id="enviar">Modificar</button>
+                <button type="reset" class="btn btn-primary " id="limpiar">Limpiar</button>
+                <button type="button" class="btn btn-primary " onclick="window.location.href='{% url 'adminPanel' %}'">Volver</button>
             </form>
             
         </div>

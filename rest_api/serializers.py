@@ -3,7 +3,7 @@ from coffeelab.models import Usuario, Producto, CarritoItems, Carrito, Pedido, D
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'password', 'direccion', 'ciudad']
+        fields = ['username', 'email', 'password', 'direccion', 'ciudad', 'rol']
         
 class ProductoSerializer(serializers.ModelSerializer):
     class Meta:

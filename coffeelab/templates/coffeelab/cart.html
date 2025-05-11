@@ -3,22 +3,22 @@
 {%block title%}Inicio | 202CoffeeLab{%endblock%}
 
 {%block content%}
-    <div class="container mt-5">
+    <div class="container mt-5 offset-md-2">
         <h2 class="mb-4">Carrito de Compras</h2>
         
         <div class="row">
-            <div class="col-md-6" id="carrito_container" style="border: 1px solid #ccc; padding: 20px; border-radius: 5px;">
+            <div class="col-md-6 mt-1" id="carrito_container" style="border: 1px solid #ccc; padding: 20px; border-radius: 5px;">
                 <h5>Tu carrito :D</h4>
                     <a href="{% url 'catalogo'%}">Explorar cafés</a>
             </div>
 
-            <div class="col-md-4" >
+            <div class="col-md-4 mt-1" >
                 <div class="card">
                     <div class="card-header">Carrito</div>
                         <div class="card-body" id="carrito_detalle"></div>
                         <div class="card-footer" id="carrito_total"></div>
                     </div>
-                    <button class="btn btn-outline-secondary  offset-md-3" type="button" onclick="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ';">
+                    <button class="btn btn-outline-secondary  offset-md-3 mt-4" type="button" onclick="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ';">
                         Proceder a Pagar
                     </button>
                 </div>

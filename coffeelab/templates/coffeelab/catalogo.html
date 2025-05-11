@@ -3,22 +3,22 @@
 {%block title%}Inicio | 202CoffeeLab{%endblock%}
 
 {%block content%}
-{%if request.user.is_authenticated%}
-<div class="container w-100  text-center" style="padding-top: 3%; padding-bottom: 3%; "  id="welcome">
-        <h1 class="display-1">Bienvenido, {{request.user.username}}</h1>
-        <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'agregarProducto' %}'">Agregar producto</button>
-    </div>
-{%else%}
-{%endif%}
+<div class="container w-100  text-center" style="padding-top: 3%; padding-bottom: 3%; display: none;"  id="welcome">
+        <h1 class="display-1">Bienvenido de nuevo, <span id="nombreUsuario"></span></h1>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'administrarProductos' %}'">Administrar Productos</button>
+</div>
 
       <div class="container py-5">
         <h1 class="text-center mb-5">Catálogo de Cafés</h1>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5" id="in-productos">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5 justify-content-center" id="in-productos">
 
         </div>
     </div>
 
 {%endblock%}
 {% block scripts %}
+<script>
+  document.getElementById('nombreUsuario').innerText = localStorage.getItem('username');
+</script>
 <script src="{% static 'coffeelab/js/catalogo.js' %}"></script>
 {% endblock %}

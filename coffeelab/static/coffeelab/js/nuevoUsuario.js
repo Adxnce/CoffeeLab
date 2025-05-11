@@ -1,27 +1,5 @@
 $(document).ready(function () {
 
-    // Función para obtener el CSRF token de las cookies
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Verifica si esta cookie es la que buscamos
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    // Configura jQuery para incluir el CSRF token en cada solicitud AJAX
-    const csrftoken = getCookie('csrftoken');
-    $.ajaxSetup({
-        headers: { 'X-CSRFToken': csrftoken }
-    });
 
     // Manejo del formulario
     $('#userForm').submit(function (e) {
@@ -33,10 +11,12 @@ $(document).ready(function () {
             email: $('#id_email').val(),
             password: $('#id_password').val(),
             direccion: $('#id_direccion').val(),
-            ciudad: $('#id_ciudad').val()
+            ciudad: $('#id_ciudad').val(),
+            rol: $('#id_rol').val(),
         };
         console.log("contraseña: ", formData.password);
         console.log("confirmar contraseña :", confirmPassword);
+        
         // Validación de contraseñas
         if (formData.password == confirmPassword){
             $.ajax({

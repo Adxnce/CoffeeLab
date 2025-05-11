@@ -7,8 +7,12 @@ class Usuario(AbstractUser):
     email = models.EmailField(unique=True, verbose_name='Email')
     direccion = models.CharField(max_length=100, verbose_name='Direccion')
     ciudad = models.CharField(max_length=50, verbose_name='Ciudad')
+    rol = models.CharField(max_length=20, choices=[
+        ('admin', 'Admin'),
+        ('cliente', 'Cliente')
+    ], default='cliente', verbose_name='Rol')
 
-    REQUIRED_FIELDS = ['email', 'direccion', 'ciudad']
+    REQUIRED_FIELDS = ['email', 'direccion', 'ciudad', 'rol']
 
     def __str__(self):
         return self.username

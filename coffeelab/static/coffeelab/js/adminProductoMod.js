@@ -2,25 +2,38 @@ $(document).ready(function() {
 
     // Recuperar el token de localStorage
     const token = localStorage.getItem('token');
+    const pathParts = window.location.pathname.split('/');
+    const sku = pathParts[2]; // si es /productos/5/, esto devuelve "5"
+    let img = "";
     
-    var preUsername = $('#id_username').val();
+    $.ajax({
+        url: '/api/lista_productos_id/' + sku,
+        type: 'GET',
+        contentType: 'application/json',
+        headers: {
+            'Authorization': 'Token ' + token
+        },
+        success: function (response) {      
+            img = response.imagen;
+        },
+    })
+
+
     // Manejo del formulario
     $('#userForm').submit(function (e) {
         e.preventDefault(); // Evita que se envíe el formulario de forma tradicional
-
-
-        console.log(preUsername)
+        
         const formData = {
-            username: $('#id_username').val(),
-            email: $('#id_email').val(),
-            password: $('#id_password').val(),
-            direccion: $('#id_direccion').val(),
-            ciudad: $('#id_ciudad').val(),
-            rol: $('#id_rol').val(),
+            SKU: sku,
+            nombreProducto: $('#id_nombreProducto').val(),
+            descripcion: $('#id_descripcion').val(),
+            precio: $('#id_precio').val(),
+            imagen: img,
         };
 
+
         $.ajax({
-            url: '/api/datos_usuarios/' + preUsername  ,
+            url: '/api/lista_productos_mod/' + sku  ,
             type: 'PUT',
             contentType: 'application/json',
             headers: {
@@ -28,13 +41,10 @@ $(document).ready(function() {
             },
             data: JSON.stringify(formData),
             success: function (response) {
-                localStorage.setItem('username', formData.username);
-                localStorage.setItem('rol', formData.rol);
-                localStorage.setItem('token', response.token);
 
                 console.log("Usuario actualizado correctamente:", response);
                 alert("Usuario actualizado correctamente.");
-                window.location.href = '/adminPanel/'; // Redirige a la página del panel de administración
+                window.location.href = '/administrarProductos/'; // Redirige a la página del panel de administración
             },
             error: function (xhr, status, error) {
                 console.error("Error al actualizar el usuario:", error);

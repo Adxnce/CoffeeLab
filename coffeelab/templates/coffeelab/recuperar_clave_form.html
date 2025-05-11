@@ -1,0 +1,15 @@
+{%extends 'coffeelab/base.html'%}
+{%load static%}
+{%block title%}Inicio | 202CoffeeLab{%endblock%}
+
+{%block content%}
+
+<h2>Restablecer Contraseña</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="clave">Nueva contraseña:</label>
+    <input type="password" name="clave" id="clave" required>
+    <button type="submit">Restablecer Contraseña</button>
+</form>
+
+{%endblock%}

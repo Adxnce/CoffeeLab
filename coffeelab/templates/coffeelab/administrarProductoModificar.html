@@ -1,0 +1,46 @@
+{%extends 'coffeelab/base.html'%}
+{%load static%}
+{%block title%}Inicio | 202CoffeeLab{%endblock%}
+
+{%block content%}
+    <div class="container w-100  text-center" style="padding-top: 5%; padding-bottom: 10%; "  id="welcome">
+        <h1 class="display-1">Bienvenido</h1>
+        <div class="container mt-5">
+
+            <h2>Modificar Producto</h2>
+
+            <form method="POST" id="userForm">
+                {% csrf_token %}
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label for="id_nombreProducto" class="form-label">Nombre Producto</label>
+                        {{ form.nombreProducto }}
+                    </div>
+                    <div class="col-md-4">
+                        <label for="id_precio" class="form-label">Password</label>
+                        {{ form.precio }}
+                    </div>
+                    <div class="col-md-4">
+                        <label for="id_descripcion" class="form-label">Email</label>
+                        {{ form.descripcion }}
+                    </div>
+                </div>
+            
+
+            
+                <button type="submit" class="btn btn-danger " id="enviar">Modificar</button>
+                <button type="reset" class="btn btn-primary " id="limpiar">Limpiar</button>
+                <button type="button" class="btn btn-primary " onclick="window.location.href='{% url 'administrarProductos' %}'">Volver</button>
+            </form>
+            
+        </div>
+
+        
+
+        <input type="button" class="btn btn-primary mt-5" onclick="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'" value="Panel de Control">
+    </div>
+
+{%endblock%}
+{% block scripts %}
+<script src="{% static 'coffeelab/js/adminProductoMod.js' %}"></script>
+{% endblock %}

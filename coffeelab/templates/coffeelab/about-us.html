@@ -5,7 +5,18 @@
 {%block content%}
     <div class="container w-100  text-center" style="padding-top: 10%; padding-bottom: 10%; "  id="welcome">
         <h1 class="display-3">Sobre nosotros!</h1>
-        <p class="lead">Soy un tostador local que se apaciona por el café y que busca día a día nuevos sabores, los cuales poder transmitirles a mis clientes!</>
+        <p class="lead">Soy un tostador local que se apaciona por el café y que busca día a día nuevos sabores, los cuales poder transmitirles a mis clientes!</p>
     </div>
+
+    <div class="container text-center mt-5">
+        <div class="text-center">
+            <img src="{{ imagen_cafe }}" alt="Café" class="img-fluid" style="max-height: 400px;">
+            <blockquote class="blockquote mt-3">
+                <p class="mb-0">{{ frase }}</p>
+            </blockquote>
+        </div>
+        
+    </div>
+    
     
 {%endblock%}

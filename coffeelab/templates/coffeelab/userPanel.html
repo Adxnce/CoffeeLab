@@ -3,61 +3,56 @@
 {%block title%}Inicio | 202CoffeeLab{%endblock%}
 
 {%block content%}
-
     <div class="container w-100  text-center" style="padding-top: 5%; padding-bottom: 10%; "  id="welcome">
+        <h1 class="display-1">Bienvenido de nuevo, <span id="nombreUsuario"></span></h1>
+
         <div class="container mt-5">
 
-            <h2>Crear Usuario</h2>
+            <h2>Actualizar datos</h2>
 
             <form method="POST" id="userForm">
                 {% csrf_token %}
                 <div class="row mb-4">
                     <div class="col-md-4">
-                        <label for="id_username" class="form-label">Nombre Usuario</label>
+                        <label for="id_nombreUsuario" class="form-label">Nombre Usuario</label>
                         {{ form.username }}
                     </div>
                     <div class="col-md-4">
-                        <label for="id_password" class="form-label">Contraseña</label>
+                        <label for="id_password" class="form-label">Password</label>
                         {{ form.password }}
                     </div>
                     <div class="col-md-4">
                         <label for="id_confirmPassword" class="form-label">Confirmar Contraseña</label>
-                        <input type="password" class="form-control" id="id_confirmPassword" required>
+                        <input type="password" class="form-control col-md-3" id="id_confirmPassword" required>
                     </div>
                     <div class="col-md-4">
                         <label for="id_email" class="form-label">Email</label>
                         {{ form.email }}
                     </div>
-                    <div class="col-md-4 ">
+                    <div class="col-md-4">
                         <label for="id_direccion" class="form-label">Dirección</label>
                         {{ form.direccion }}
                     </div>
-                    <div class="col-md-4  " >
+                    <div class="col-md-4 ">
                         <label for="id_ciudad" class="form-label">Ciudad</label>
                         {{ form.ciudad }}
-                    </div>
-                    <div class="col-md-4 offset-md-4">
-                        <label for="id_rol" class="form-label">Rol</label>
-                        {{ form.rol }}
                     </div>
                 </div>
             
 
             
-                <button type="submit" class="btn btn-danger">Enviar</button>
-                <button type="reset" class="btn btn-primary">Limpiar</button>
-                <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'adminPanel' %}'">Volver</button>
-            </form>
-            {{mensaje}}
+                    <button type="button" class="btn btn-danger" id="enviar">Modificar</button>
+                    <button type="reset" class="btn btn-primary" id="limpiar">Limpiar</button>
+                </form>
+            
         </div>
 
-
-        
-
-        <input type="button" class="btn btn-primary mt-5" onclick="window.location.href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'" value="Panel de Control">
     </div>
 
 {%endblock%}
 {% block scripts %}
-<script src="{% static 'coffeelab/js/nuevoUsuario.js' %}"></script>
+<script>
+    document.getElementById('nombreUsuario').innerText = localStorage.getItem('username');
+</script>
+<script src="{% static 'coffeelab/js/miPerfil.js' %}"></script>
 {% endblock %}

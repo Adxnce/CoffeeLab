@@ -1,35 +1,18 @@
 $(document).ready(function() {
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Verifica si esta cookie es la que buscamos
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
 
-    // Configura jQuery para incluir el CSRF token en cada solicitud AJAX
-    const csrftoken = getCookie('csrftoken');
-    $.ajaxSetup({
-        headers: { 'X-CSRFToken': csrftoken }
-    });
+    const token = localStorage.getItem('token');
 
     $.ajax({
         url: '/api/vista_carrito_usuario/',
         type: 'GET',
         contentType: 'application/json',
+        headers: {
+            'Authorization': 'Token ' + token
+        },
         success: function (response) {
             console.log(response.items[1]);
             let precio_total_carrito = 0;
             $.each(response.items, function(index, carrito) {
-                $('#carrito_container').empty();
                 precio_total_carrito += carrito.precio_unitario * carrito.cantidad;
                 precio_total_producto = carrito.precio_unitario * carrito.cantidad;
                     $('#carrito_container').append(
@@ -70,9 +53,12 @@ $(document).ready(function() {
             url: '/api/borrar_producto_carrito/'+itemId,
             type: 'DELETE',
             contentType: 'application/json',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
             success: function (response) {
                 alert("Producto borrado del carrito.");
-                location.reload(); // o remover el div del DOM manualmente
+                location.reload();
             },
             error: function () {
                 alert("Error al borrar el producto.");
