@@ -17,7 +17,7 @@ urlpatterns = [
     path('recuperar_clave/', recuperar_clave, name='recuperar_clave'),
     # mis apis
 
-    path('usuarios/', api_productos, name='api_usuarios'),
-    path('productos/', api_usuarios, name='api_productos'),
+    path('usuarios/', api_usuarios, name='api_usuarios'),
+    path('productos/', api_productos, name='api_productos'),
 
 ]

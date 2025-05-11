@@ -6,7 +6,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny
 from django.views.decorators.csrf import csrf_exempt
 from coffeelab.models import Usuario, Producto, Carrito, CarritoItems
-from .serializers import UsuarioSerializer, ProductoSerializer, CarritoSerializer
+from .serializers import UsuarioSerializer, ProductoSerializer, CarritoSerializer, UsuarioPublicSerializer
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
@@ -194,7 +194,7 @@ def api_productos(request):
 
 def api_usuarios(request):
         usuarios = Usuario.objects.all()
-        data = UsuarioSerializer(usuarios, many=True).data
+        data = UsuarioPublicSerializer(usuarios, many=True).data
         return JsonResponse(data, safe=False)
 
 @csrf_exempt

@@ -4,7 +4,12 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
         fields = ['username', 'email', 'password', 'direccion', 'ciudad', 'rol']
-        
+
+class UsuarioPublicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['username', 'email', 'direccion', 'ciudad', 'rol']
+
 class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
